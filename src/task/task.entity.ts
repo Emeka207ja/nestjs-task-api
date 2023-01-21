@@ -15,5 +15,6 @@ export class taskEntity extends BaseEntity {
     age: number;
 
     @Column()
-    status:string
+    status: string;
+   
 }

@@ -7,9 +7,12 @@ import { status } from './Enums/Status.Enums';
 import { statusValidatorPipe } from './Pipes/taskStatus.pipe';
 import { taskEntity } from './task.entity';
 import { filterDto } from './DTOs/filter.dto';
-
+import { AuthGuard } from '@nestjs/passport';
+import { UseGuards } from '@nestjs/common/decorators';
+import { JwtGuard } from 'src/auth/jwt.guard';
 
 @Controller('task')
+    @UseGuards(JwtGuard)
 export class TaskController {
     constructor(private taskService: TaskService) { }
     @Get()

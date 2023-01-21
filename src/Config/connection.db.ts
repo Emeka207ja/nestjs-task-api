@@ -11,5 +11,4 @@ export const connectionConfig: TypeOrmModuleOptions= {
     database: "messagemanager",
     entities:[taskEntity,AuthEntity ],
     // entities:[__dirname+"../**/*.entity.ts" ],
-    synchronize:true
 }

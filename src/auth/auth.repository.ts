@@ -1,18 +1,54 @@
-import { Injectable } from "@nestjs/common";
-import { Repository } from "typeorm";
+import { ConflictException, Injectable, InternalServerErrorException,NotFoundException } from "@nestjs/common";
+import { Repository,DataSource } from "typeorm";
 import { AuthEntity } from "./auth.entity";
 import { NewUserDto } from "./DTO/signup.dto";
+import * as bcrypt from "bcrypt"
+import { SignInDto } from "./DTO/siginin.dto";
 
 @Injectable()
 export class AuthRepository extends Repository<AuthEntity>{
+     constructor(private dataSource:DataSource) {
+        super(AuthEntity,dataSource.createEntityManager())
+    }
 
     async CreateUser(newUser: NewUserDto): Promise<string> {
+        const salt = await bcrypt.genSalt()
         const user = new AuthEntity();
         user.username = newUser.username;
         user.email = newUser.email;
-        user.password = newUser.password;
-        await user.save()
-        return user.id
+        user.salt = await bcrypt.genSalt();
+        user.password = await this.HashPassword(newUser.password, user.salt);
+       
+        try {
+            await user.save()
+            return user.id
+        } catch (error) {
+          
+            if (error.code === '23505') {
+               throw new ConflictException("username or email already exist")
+           }else{
+            throw new InternalServerErrorException()
+           }
+        }   
+    }
+
+    async SignIn(signInDetails: SignInDto): Promise<string> {
+        const { password, email } = signInDetails
         
+        const user = await this.findOneBy({email:email})
+        
+        if (!user) {
+            throw new NotFoundException("email or password not found")
+        }
+        
+        if (user && await user.validatePassword(password)) {
+            return user.username;
+        } else {
+            throw new NotFoundException("email or password not found")
+        }
+    }
+
+    async HashPassword(password: string, saltString: string):Promise<string> {
+        return await bcrypt.hash(password,saltString)
     }
 }
