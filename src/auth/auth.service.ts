@@ -18,7 +18,6 @@ export class AuthService {
     }
 
     async SignIn(signInDetails: SignInDto):Promise<{access_token:string}> {
-        console.log(process.env.JWT_SECRET)
         const username = await this.authRepository.SignIn(signInDetails)
         const signValue: jwtInterface = { username }
         const access_token =  this.jwtService.sign(signValue)

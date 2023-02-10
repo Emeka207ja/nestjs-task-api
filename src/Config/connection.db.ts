@@ -9,6 +9,7 @@ export const connectionConfig: TypeOrmModuleOptions= {
     username: "postgres",
     password: "imprint",
     database: "messagemanager",
-    entities:[taskEntity,AuthEntity ],
+    entities: [taskEntity, AuthEntity],
+    synchronize:true
     // entities:[__dirname+"../**/*.entity.ts" ],
 }

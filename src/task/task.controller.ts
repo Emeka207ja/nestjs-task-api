@@ -10,14 +10,19 @@ import { filterDto } from './DTOs/filter.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UseGuards } from '@nestjs/common/decorators';
 import { JwtGuard } from 'src/auth/jwt.guard';
+import { AuthEntity } from 'src/auth/auth.entity';
+import { GetUser } from 'src/auth/getUser.decorator';
 
 @Controller('task')
     @UseGuards(JwtGuard)
 export class TaskController {
     constructor(private taskService: TaskService) { }
     @Get()
-    getAllTask(@Query() query:filterDto):Promise<taskEntity[]> {
-        return this.taskService.getAllTasks(query)
+    getAllTask(
+        @Query() query: filterDto,
+        @GetUser() user:AuthEntity
+    ) {
+        return this.taskService.getAllTasks(query,user)
     }
 
     @Get(":id")
@@ -26,8 +31,11 @@ export class TaskController {
     }
 
     @Post()
-    createTask(@Body() task: createTaskDto):Promise<number> {
-        return this.taskService.createTask(task)
+    createTask(
+        @Body() task: createTaskDto,
+        @GetUser() user:AuthEntity
+    ): Promise<number> {
+        return this.taskService.createTask(task,user)
     }
 
     @Delete(":id")

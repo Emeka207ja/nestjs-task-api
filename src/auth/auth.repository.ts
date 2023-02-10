@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException,NotFoundException } from "@nestjs/common";
+import { ConflictException, HttpException, Injectable, InternalServerErrorException,NotFoundException,HttpStatus } from "@nestjs/common";
 import { Repository,DataSource } from "typeorm";
 import { AuthEntity } from "./auth.entity";
 import { NewUserDto } from "./DTO/signup.dto";
@@ -12,12 +12,14 @@ export class AuthRepository extends Repository<AuthEntity>{
     }
 
     async CreateUser(newUser: NewUserDto): Promise<string> {
+        console.log(newUser)
         const salt = await bcrypt.genSalt()
         const user = new AuthEntity();
         user.username = newUser.username;
         user.email = newUser.email;
         user.salt = await bcrypt.genSalt();
         user.password = await this.HashPassword(newUser.password, user.salt);
+        // user.task = []
        
         try {
             await user.save()
@@ -28,23 +30,29 @@ export class AuthRepository extends Repository<AuthEntity>{
                throw new ConflictException("username or email already exist")
            }else{
             throw new InternalServerErrorException()
-           }
+            }
         }   
     }
 
     async SignIn(signInDetails: SignInDto): Promise<string> {
-        const { password, email } = signInDetails
-        
-        const user = await this.findOneBy({email:email})
-        
-        if (!user) {
-            throw new NotFoundException("email or password not found")
-        }
-        
-        if (user && await user.validatePassword(password)) {
-            return user.username;
-        } else {
-            throw new NotFoundException("email or password not found")
+       
+        try {
+            const { password, email } = signInDetails;
+            const user = await this.findOneBy({ email: email });
+            
+            if (!user) {
+                throw new NotFoundException("email or password not found")
+            }
+            
+            if (user && await user.validatePassword(password)) {
+                return user.username;
+            } else {
+                throw new NotFoundException("email or password not found")
+            }
+        } catch (error) {
+
+            throw new HttpException("problem signing in",HttpStatus.BAD_REQUEST)
+            
         }
     }
 
