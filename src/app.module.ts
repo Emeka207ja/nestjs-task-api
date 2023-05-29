@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm/dist';
 import { connectionConfig } from './Config/connection.db';
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
+import { ProfileModule } from './profile/profile.module';
 
 
 @Module({
@@ -13,7 +14,8 @@ import { ChatModule } from './chat/chat.module';
     TaskModule,
     TypeOrmModule.forRoot(connectionConfig),
     AuthModule,
-    ChatModule
+    ChatModule,
+    ProfileModule
   ],
   controllers: [AppController],
   providers: [AppService],
