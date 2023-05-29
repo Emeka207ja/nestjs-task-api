@@ -7,25 +7,25 @@ export const connectionConfig: TypeOrmModuleOptions = {
   type: 'postgres',
   host:
     process.env.NODE_ENV === 'production'
-      ? process.env.PROD_DATABASE_HOST
+      ? process.env.PGHOST
       :"localhost",
   port:
     process.env.NODE_ENV === 'production'
-      ? +process.env.PROD_DATABASE_PORT
+      ? +process.env.PGPORT
       :  5432,
   username:
     process.env.NODE_ENV === 'production'
-      ? process.env.PROD_DATABASE_USERNAME
+      ? process.env.PGUSER
       : 'postgres',
   password:
     process.env.NODE_ENV === 'production'
-      ? process.env.PROD_DATABASE_PASSWORD
+      ? process.env.PGPASSWORD
       : 'imprint',
   database:
     process.env.NODE_ENV === 'production'
-      ? process.env.PROD_DATABASE_DBNAME
+      ? process.env.PGDATABASE
       : 'messagemanager',
   synchronize: process.env.NODE_ENV === 'development',
-    entities: [taskEntity, AuthEntity],
-  // entities:[__dirname+"../**/*.entity.ts" ],
+    // entities: [taskEntity, AuthEntity],
+  entities:[__dirname+"../**/*.entity.ts" ],
 };
