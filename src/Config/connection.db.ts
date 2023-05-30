@@ -12,7 +12,7 @@ export const connectionConfig: TypeOrmModuleOptions =
 
     synchronize: false,
 
-    entities:[__dirname+"../**/*.entity.ts" ],
+    entities: [__dirname + '/../**/*.entity{.ts,.js}'],
 
 }
 
