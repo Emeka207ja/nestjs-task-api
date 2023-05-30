@@ -12,8 +12,8 @@ export const connectionConfig: TypeOrmModuleOptions =
 
     synchronize: false,
 
-    // entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-    entities: [AuthEntity,taskEntity],
+    entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+    // entities: [AuthEntity,taskEntity],
 
 }
 
@@ -35,6 +35,6 @@ export const connectionConfig: TypeOrmModuleOptions =
 
   synchronize: true,
 
-  entities: [AuthEntity,taskEntity],
+  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
 
 };
