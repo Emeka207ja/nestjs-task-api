@@ -12,7 +12,7 @@ import { ProfileModule } from './profile/profile.module';
 @Module({
   imports: [
     TaskModule,
-    TypeOrmModule.forRoot(connectionConfig),
+    TypeOrmModule.forRootAsync(connectionConfig),
     AuthModule,
     ChatModule,
     ProfileModule

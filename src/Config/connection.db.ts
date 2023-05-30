@@ -1,10 +1,10 @@
-import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+import { TypeOrmModuleAsyncOptions } from "@nestjs/typeorm";
 import { taskEntity } from "src/task/task.entity";
 import { AuthEntity } from "src/auth/entity/auth.entity";
 
-export const connectionConfig: TypeOrmModuleOptions =
-
-  process.env.NODE_ENV === 'production' ? {
+export const connectionConfig: TypeOrmModuleAsyncOptions = {
+   useFactory: async() => (
+    process.env.NODE_ENV === 'production' ? {
 
     type: 'postgres',
 
@@ -37,4 +37,7 @@ export const connectionConfig: TypeOrmModuleOptions =
 
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
 
-};
+}
+)
+}
+ 
