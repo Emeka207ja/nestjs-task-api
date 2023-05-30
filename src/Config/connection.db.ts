@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { taskEntity } from "src/task/task.entity";
-// import { AuthEntity } from "src/auth/auth.entity";
+import { AuthEntity } from "src/auth/entity/auth.entity";
 
 export const connectionConfig: TypeOrmModuleOptions =
 
@@ -12,7 +12,8 @@ export const connectionConfig: TypeOrmModuleOptions =
 
     synchronize: false,
 
-    entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+    // entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+    entities: [AuthEntity,taskEntity],
 
 }
 
@@ -34,6 +35,6 @@ export const connectionConfig: TypeOrmModuleOptions =
 
   synchronize: true,
 
- entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  entities: [AuthEntity,taskEntity],
 
 };
