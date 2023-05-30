@@ -14,42 +14,42 @@ import { AuthEntity } from 'src/auth/entity/auth.entity';
 import { GetUser } from 'src/auth/getUser.decorator';
 
 @Controller('task')
-    @UseGuards(JwtGuard)
+//     @UseGuards(JwtGuard)
 export class TaskController {
-    constructor(private taskService: TaskService) { }
-    @Get()
-    getAllTask(
-        @Query() query: filterDto,
-        @GetUser() user:AuthEntity
-    ) {
-        return this.taskService.getAllTasks(query,user)
-    }
+//     constructor(private taskService: TaskService) { }
+//     @Get()
+//     getAllTask(
+//         @Query() query: filterDto,
+//         @GetUser() user:AuthEntity
+//     ) {
+//         return this.taskService.getAllTasks(query,user)
+//     }
 
-    @Get(":id")
-    getTaskById(@Param("id") id:number):Promise<taskEntity> {
-        return this.taskService.getTaskById(id)
-    }
+//     @Get(":id")
+//     getTaskById(@Param("id") id:number):Promise<taskEntity> {
+//         return this.taskService.getTaskById(id)
+//     }
 
-    @Post()
-    createTask(
-        @Body() task: createTaskDto,
-        @GetUser() user:AuthEntity
-    ): Promise<number> {
-        return this.taskService.createTask(task,user)
-    }
+//     @Post()
+//     createTask(
+//         @Body() task: createTaskDto,
+//         @GetUser() user:AuthEntity
+//     ): Promise<number> {
+//         // return this.taskService.createTask(task,user)
+//     }
 
-    @Delete(":id")
-    deleteTask(@Param("id") id: number):Promise<number|Error> {
-        return this.taskService.deleteTask(id)
-    }
+//     // @Delete(":id")
+//     // deleteTask(@Param("id") id: number):Promise<number|Error> {
+//     //     return this.taskService.deleteTask(id)
+//     // }
 
-    @Patch(":id")
-    updateTask(@Param("id") id:number, @Body() task:createTaskDto) {
-        return this.taskService.updateTask(id,task)
-    }
+//     // @Patch(":id")
+//     // updateTask(@Param("id") id:number, @Body() task:createTaskDto) {
+//     //     return this.taskService.updateTask(id,task)
+//     // }
 
-    @Patch(":id/status")
-    updateStatus(@Param("id") id: number, @Body("status",statusValidatorPipe) Status: status): Promise<number|Error> {
-        return this.taskService.updateStatus(id,Status)
-    }
+//     // @Patch(":id/status")
+//     // updateStatus(@Param("id") id: number, @Body("status",statusValidatorPipe) Status: status): Promise<number|Error> {
+//     //     return this.taskService.updateStatus(id,Status)
+//     // }
 }

@@ -1,6 +1,5 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 import * as bcrypt from "bcrypt"
-import { taskEntity } from "src/task/task.entity";
 
 @Entity(
     
@@ -19,8 +18,5 @@ export class AuthEntity {
     @Column()
     password: string;
     
-
-   
-
     
 }
