@@ -10,7 +10,7 @@ export const connectionConfig: TypeOrmModuleAsyncOptions = {
 
     url: process.env.DATABASE_URL,
 
-    synchronize: false,
+    synchronize: true,
 
     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     // entities: [AuthEntity,taskEntity],
