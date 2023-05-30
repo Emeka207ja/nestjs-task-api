@@ -3,9 +3,7 @@ import * as bcrypt from "bcrypt"
 import { taskEntity } from "src/task/task.entity";
 
 @Entity(
-    {
-        name:"auths"
-    }
+    
 )
 @Unique(["username","email"])
 export class AuthEntity {
