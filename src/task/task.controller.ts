@@ -10,7 +10,7 @@ import { filterDto } from './DTOs/filter.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UseGuards } from '@nestjs/common/decorators';
 import { JwtGuard } from 'src/auth/jwt.guard';
-import { AuthEntity } from 'src/auth/auth.entity';
+import { AuthEntity } from 'src/auth/entity/auth.entity';
 import { GetUser } from 'src/auth/getUser.decorator';
 
 @Controller('task')

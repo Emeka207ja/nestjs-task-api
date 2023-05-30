@@ -2,9 +2,13 @@ import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique }
 import * as bcrypt from "bcrypt"
 import { taskEntity } from "src/task/task.entity";
 
-@Entity()
+@Entity(
+    {
+        name:"auths"
+    }
+)
 @Unique(["username","email"])
-export class AuthEntity extends BaseEntity{
+export class AuthEntity {
     @PrimaryGeneratedColumn()
     id: string;
 
@@ -17,14 +21,8 @@ export class AuthEntity extends BaseEntity{
     @Column()
     password: string;
     
-    @Column()
-    salt: string;
 
-    @OneToMany(()=>taskEntity,(task)=>task.user,{eager:true})
-    task:taskEntity[]
+   
 
-    async validatePassword(password: string):Promise<boolean> {
-        const hash = await bcrypt.hash(password, this.salt);
-        return hash === this.password
-    }
+    
 }

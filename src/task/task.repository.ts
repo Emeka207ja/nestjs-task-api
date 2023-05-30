@@ -4,7 +4,7 @@ import { createTaskDto } from "./DTOs/createTask.Dto";
 import { taskEntity } from "./task.entity";
 import {status} from "./Enums/Status.Enums"
 import { filterDto } from "./DTOs/filter.dto";
-import { AuthEntity } from "src/auth/auth.entity";
+import { AuthEntity } from "src/auth/entity/auth.entity";
 import { taskDto } from "./DTOs/task.dto";
 
 @Injectable()
@@ -50,7 +50,7 @@ export class TaskRepository extends Repository<taskEntity>{
         Task.message = IncomingTask.message,
         Task.age  = IncomingTask.age,
         Task.status = status.OPEN,
-        Task.user= user    
+           
         await this.save(Task);
         return Task.id;
     }

@@ -8,7 +8,7 @@ import { TaskRepository } from './task.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { taskEntity } from './task.entity';
 import { filterDto } from './DTOs/filter.dto';
-import { AuthEntity } from 'src/auth/auth.entity';
+import { AuthEntity } from 'src/auth/entity/auth.entity';
 
 @Injectable()
 export class TaskService {

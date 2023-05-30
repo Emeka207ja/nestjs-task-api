@@ -1,10 +1,10 @@
 import { BaseEntity, Column, Entity,  ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { AuthEntity } from "src/auth/auth.entity";
+import { AuthEntity } from "src/auth/entity/auth.entity";
 
 
 
 @Entity()
-export class taskEntity extends BaseEntity {
+export class taskEntity  {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -20,10 +20,6 @@ export class taskEntity extends BaseEntity {
     @Column()
     status: string;
 
-    @ManyToOne(() => AuthEntity, (user) => user.task, { eager: false })
-    user: AuthEntity;
-
-    @Column()
-    userId:number
+   
    
 }

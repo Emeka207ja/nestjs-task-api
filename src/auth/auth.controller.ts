@@ -5,7 +5,7 @@ import { SignInDto } from './DTO/siginin.dto';
 import { NewUserDto } from './DTO/signup.dto';
 import { JwtGuard } from './jwt.guard';
 import { GetUser } from './getUser.decorator';
-import { AuthEntity } from './auth.entity';
+import { AuthEntity } from './entity/auth.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -15,10 +15,10 @@ export class AuthController {
         return this.authService.CreateUser(newUser)
     }
 
-    @Post("/signin")
-    SignIn(@Body() signInDetail: SignInDto) {
-        return this.authService.SignIn(signInDetail)
-    }
+    // @Post("/signin")
+    // SignIn(@Body() signInDetail: SignInDto) {
+    //     return this.authService.SignIn(signInDetail)
+    // }
 
     @Post("/test")
     @UseGuards(JwtGuard)
